@@ -16,27 +16,43 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Link to="/">Home</Link>
-            <Link to="/cart">Cart</Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/cart");
+              }}
+            >
+              Cart
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<div></div>} />
-        <Route path="/detail" element={<div></div>} />
-        <Route />
+        <Route
+          path="/"
+          element={
+            <>
+              <div className="main-bg"></div>
+              <div className="container">
+                <div className="row">
+                  {shoes.map((a, i) => {
+                    return <Card shoes={shoes[i]} i={i + 1}></Card>;
+                  })}
+                </div>
+              </div>
+            </>
+          }
+        />
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route path="*" element={<div>없는 페이지입니다.</div>} />
       </Routes>
-
-      <div className="main-bg"></div>
-
-      <div className="container">
-        <div className="row">
-          {shoes.map((a, i) => {
-            return <Card shoes={shoes[i]} i={i + 1}></Card>;
-          })}
-        </div>
-      </div>
     </div>
   );
 }
